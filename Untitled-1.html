@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Daouda – Data Analyst</title>
+  <meta name="description" content="Page d'accueil de portfolio pour Data Analyst : présentation, projets et contact." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #f7f9fc;
+      --card: #ffffff;
+      --ink: #0f172a;
+      --muted: #475569;
+      --brand: #0b4fff;
+      --brand-ink: #0b3bb5;
+      --ring: rgba(11,79,255,.15);
+      --line: #e5eaf2;
+    }
+
+    *,*::before,*::after{ box-sizing:border-box; }
+    body{ margin:0; font-family: Inter, system-ui, sans-serif; color:var(--ink); background:var(--bg); }
+    a{ text-decoration:none; }
+
+    .container{ width:min(1120px, 92vw); margin-inline:auto; }
+    header{ position:sticky; top:0; z-index:40; background:rgba(247,249,252,.7); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); }
+    .nav{ display:flex; align-items:center; justify-content:space-between; padding:14px 0; }
+    .brand{ font-weight:800; font-size:1.1rem; color:var(--ink); letter-spacing:.2px; }
+    .brand span{ color:var(--brand); }
+    .nav-links{ display:flex; gap:22px; align-items:center; }
+    .btn{ display:inline-flex; align-items:center; padding:12px 18px; border-radius:14px; background:var(--brand); color:#fff; font-weight:700; }
+
+    .hero{ display:grid; grid-template-columns:1.05fr .95fr; gap:48px; align-items:center; padding:72px 0 56px; }
+    .title{ font-size: clamp(2rem, 4vw + .5rem, 3.5rem); margin:14px 0; line-height:1.05; }
+    .subtitle{ color:var(--muted); font-size:1.05rem; max-width:54ch; }
+    .cta-row{ display:flex; gap:14px; align-items:center; margin-top:24px; flex-wrap:wrap; }
+
+    .profile{ display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; }
+    .profile img{ width: 280px; height: 280px; border-radius: 50%; border: 6px solid var(--line); object-fit: cover; box-shadow:0 8px 20px -10px rgba(0,0,0,.25); }
+    .profile h2{ margin-top:16px; font-size:1.35rem; }
+    .profile p{ margin:4px 0 0; color:var(--muted); }
+
+    /* Skills section */
+    .skills{ padding:18px 0 8px; }
+    .skills h2{ margin:0 0 10px; font-size:1.6rem; }
+    .skills-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap:18px; }
+    .skill-card{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:16px; box-shadow:0 6px 14px -12px rgba(2,6,23,.12); }
+    .skill-card h3{ margin:4px 0 10px; font-size:1.05rem; }
+    .badges{ display:flex; flex-wrap:wrap; gap:10px; }
+    .badge{ display:inline-flex; align-items:center; gap:6px; padding:8px 10px; border-radius:999px; font-size:.92rem; background:#f5f8ff; border:1px solid #e7edff; color:#2643a2; }
+    .badge .dot{ width:8px; height:8px; border-radius:999px; background:var(--brand); box-shadow:0 0 0 3px rgba(11,79,255,.15); }
+
+    @media (max-width: 920px){ .skills-grid{ grid-template-columns:1fr; } }
+
+    #contact a{ color:var(--brand); font-weight:500; }
+    #contact a:hover{ color:var(--brand-ink); text-decoration:underline; }
+
+    /* Projects section */
+    .projects{ padding:40px 0 8px; }
+    .projects h2{ margin:0 0 10px; font-size:1.6rem; }
+    .filter-bar{ display:flex; flex-wrap:wrap; gap:10px; margin:12px 0 16px; }
+    .filter-btn{ padding:8px 12px; border-radius:999px; border:1px solid var(--line); background:#fff; color:var(--ink); font-weight:500; cursor:pointer; }
+    .filter-btn[aria-pressed="true"], .filter-btn.active{ background:var(--brand); color:#fff; border-color:transparent; }
+
+    .projects-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap:18px; }
+    .project-card{ background:var(--card); border:1px solid var(--line); border-radius:16px; overflow:hidden; box-shadow:0 6px 14px -12px rgba(2,6,23,.12); display:flex; flex-direction:column; }
+    .project-thumb{ position:relative; aspect-ratio:16/9; background:#eef2ff; }
+    .project-thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
+    .project-body{ padding:14px 16px; display:flex; flex-direction:column; gap:10px; }
+    .project-title{ margin:0; font-size:1.05rem; }
+    .project-desc{ margin:0; color:var(--muted); line-height:1.4; }
+    .project-meta{ display:flex; flex-wrap:wrap; gap:8px; color:var(--muted); font-size:.92rem; }
+    .tags{ display:flex; flex-wrap:wrap; gap:8px; }
+    .tag{ padding:6px 10px; border-radius:999px; background:#f5f8ff; border:1px solid #e7edff; color:#2643a2; font-size:.88rem; }
+    .actions{ display:flex; gap:10px; margin-top:6px; }
+    .btn-outline{ display:inline-flex; align-items:center; padding:10px 14px; border-radius:12px; background:transparent; border:1px solid var(--brand); color:var(--brand); font-weight:600; }
+    .btn-outline:hover{ background:rgba(11,79,255,.06); }
+
+    @media (max-width: 920px){ .projects-grid{ grid-template-columns:1fr; } }
+
+    footer{ margin-top:56px; border-top:1px solid var(--line); padding:24px 0; color:var(--muted); font-size:.95rem; }
+
+    @media (max-width: 920px){ .hero{ grid-template-columns:1fr; gap:28px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#home" aria-label="Aller à l'accueil"><span>PORTO</span>FOLIO</a>
+      <nav class="nav-links" aria-label="Navigation principale">
+        <a href="#projets">Projets</a>
+        <a href="#a-propos">À propos</a>
+        <a href="#competences">Compétences</a>
+        <a href="#contact">Contact</a>
+        <a class="btn" href="#projets">Voir les projets</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="home" class="container">
+    <section class="hero">
+      <div>
+        <h1 class="title">Daouda<br />Data Analyst</h1>
+        <p class="subtitle">Data Analyst passionné par la transformation des données en insights exploitables. Je maîtrise l’analyse statistique, la visualisation et la création de tableaux de bord interactifs pour aider à la prise de décision stratégique. Curieux, rigoureux et orienté résultats, j’aime explorer les données pour en révéler la valeur cachée.</p>
+        <div class="cta-row">
+          <a class="btn" href="#projets">Voir les projets</a>
+          <a href="#contact">Ou me contacter →</a>
+        </div>
+      </div>
+      <figure class="profile">
+        <img src="images/Profile.jpg" alt="Photo de profil de Daouda Mahaman Sani" />
+        <figcaption>
+          <h2>Daouda Mahaman Sani</h2>
+          <p>Data Analyst</p>
+        </figcaption>
+      </figure>
+    </section>
+
+    <section id="projets" class="projects">
+      <h2>Projets en vedette</h2>
+      <div class="filter-bar" role="toolbar" aria-label="Filtrer les projets par tag">
+        <button class="filter-btn active" data-filter="all" aria-pressed="true">Tous</button>
+        <button class="filter-btn" data-filter="geospatial" aria-pressed="false">Géospatial</button>
+        <button class="filter-btn" data-filter="econometrics" aria-pressed="false">Économétrie</button>
+        <button class="filter-btn" data-filter="dashboard" aria-pressed="false">Dashboards</button>
+        <button class="filter-btn" data-filter="python" aria-pressed="false">Python</button>
+        <button class="filter-btn" data-filter="stata" aria-pressed="false">Stata</button>
+      </div>
+
+      <div class="projects-grid" id="projectsGrid">
+        <!-- Project 1 -->
+        <!-- Project: SQL Retail Business Insights -->
+<article class="project-card" data-tags="sql retail business dashboard joins window cte quality github youtube">
+<div class="project-thumb">
+<img src="images\Sql.jpg" alt="Aperçu — Analyse Retail SQL (Business Insights)" />
+</div>
+<div class="project-body">
+<h3 class="project-title">Analyse Retail — Business Insights (SQL)</h3>
+<p class="project-desc">Cas complet d’analyse SQL sur données de ventes : tendances, performances, part‑à‑tout et segmentation clients/produits, avec livrables orientés décideurs.</p>
+<div class="project-meta">
+<span>Outils : SQL</span> • <span>Techniques : JOIN, GROUP BY, Window Functions, CTE</span> • <span>Période : Mars 2025</span>
+</div>
+<div class="tags">
+<span class="tag">SQL</span>
+<span class="tag">Retail</span>
+<span class="tag">Dashboards</span>
+</div>
+<div class="actions">
+<a class="btn" href="projet-sql-retail.html" target="_blank" rel="noopener">Voir le projet</a>
+<a class="btn-outline" href="#" target="_blank" rel="noopener">Code</a>
+</div>
+</div>
+</article>
+
+        <!-- Project 2 -->
+        <article class="project-card" data-tags="dashboard bi powerbi population development">
+          <div class="project-thumb">
+            <img src="images/powerbi-thumb.jpg" alt="Aperçu – Tableau de bord Population & Développement" />
+          </div>
+          <div class="project-body">
+            <h3 class="project-title">Dashboard – Population & Développement (Q1 2024)</h3>
+            <p class="project-desc">Tableau de bord Power BI présentant indicateurs clés, suivi des réalisations et recommandations pour la prise de décision. Accent sur l’accessibilité et la collecte semi‑automatisée.</p>
+            <div class="project-meta">
+              <span>Outils : Power BI, Excel</span> • <span>Méthodes : KPI, Data storytelling</span>
+            </div>
+            <div class="tags">
+              <span class="tag">Dashboards</span>
+              <span class="tag">Power BI</span>
+            </div>
+            <div class="actions">
+              <a class="btn" href="#" aria-label="Voir le projet Dashboard">Voir</a>
+              <a class="btn-outline" href="#" aria-label="Voir le code ou le fichier">Code / Fichier</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 3 -->
+        <article class="project-card" data-tags="econometrics stata fertility dhs poisson iv">
+          <div class="project-thumb">
+            <img src="images/fertility-thumb.jpg" alt="Aperçu – Déterminants de la fécondité en Côte d’Ivoire" />
+          </div>
+          <div class="project-body">
+            <h3 class="project-title">Fertility Determinants – Côte d’Ivoire (DHS 2021)</h3>
+            <p class="project-desc">Modèles OLS/Poisson pour analyser les déterminants socio‑économiques de la fécondité, avec mise en évidence d’effets urbain/rural et scolarisation, et discussion d’identification.</p>
+            <div class="project-meta">
+              <span>Outils : Stata</span> • <span>Méthodes : OLS, Poisson, Effets fixes</span>
+            </div>
+            <div class="tags">
+              <span class="tag">Économétrie</span>
+              <span class="tag">Stata</span>
+            </div>
+            <div class="actions">
+              <a class="btn" href="#" aria-label="Voir le projet Fertility">Voir</a>
+              <a class="btn-outline" href="#" aria-label="Voir les scripts">Scripts</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="a-propos" style="padding:18px 0 8px;">
+      <h2>À propos</h2>
+      <p style="color:var(--muted); max-width:70ch;">
+        Je suis étudiant en master d’économie du développement au CERDI (Université Clermont Auvergne), avec une formation initiale en statistiques et économie (ENSEA Abidjan). J’aime transformer des jeux de données complexes en décisions utiles. Mes projets récents portent sur l’analyse des inondations au Nigeria (LSMS‑ISA/GHSP) : reconstruction de panels multi‑vagues, fusion ménage/communauté et appariement à des données satellites (NOAA VIIRS, NASA GFMS, CHIRPS). Je conçois des indicateurs géospatiaux (jours d’inondation, précipitations), mets en œuvre des modèles économétriques (OLS, Logit/Probit, Poisson, DiD, reghdfe) et réalise des tableaux de bord décisionnels (Power BI). Je travaille au quotidien avec Python (pandas, geopandas), Stata, SQL et QGIS, en documentant des pipelines reproductibles. J’ai aussi contribué à des livrables orientés terrain (WASH/marketing de l’assainissement, TDR, offres financières, modules de formation). Curieux, rigoureux et orienté impact, je cherche un stage où je peux apporter de la valeur sur toute la chaîne data : <em>ingénierie légère → analyse → visualisation & restitution</em>.
+      </p>
+    </section>
+
+    <section id="competences" class="skills">
+      <h2>Compétences</h2>
+      <div class="skills-grid">
+        <article class="skill-card" aria-label="Compétences techniques">
+          <h3>Techniques</h3>
+          <div class="badges">
+            <span class="badge"><span class="dot"></span> Python (pandas, numpy, matplotlib)</span>
+            <span class="badge"><span class="dot"></span> SQL</span>
+            <span class="badge"><span class="dot"></span> Power BI / Tableau</span>
+            <span class="badge"><span class="dot"></span> Stata / R</span>
+            <span class="badge"><span class="dot"></span> Excel avancé (TCD)</span>
+            <span class="badge"><span class="dot"></span> Git & GitHub</span>
+            <span class="badge"><span class="dot"></span> QGIS / GeoPandas</span>
+          </div>
+        </article>
+
+        <article class="skill-card" aria-label="Compétences analytiques">
+          <h3>Analytiques</h3>
+          <div class="badges">
+            <span class="badge"><span class="dot"></span> Statistiques descriptives</span>
+            <span class="badge"><span class="dot"></span> Régression / Panel</span>
+            <span class="badge"><span class="dot"></span> Séries temporelles</span>
+            <span class="badge"><span class="dot"></span> Nettoyage & qualité des données</span>
+            <span class="badge"><span class="dot"></span> Tableaux de bord KPI</span>
+            <span class="badge"><span class="dot"></span> A/B testing (bases)</span>
+          </div>
+        </article>
+
+        <article class="skill-card" aria-label="Compétences transversales">
+          <h3>Transversales</h3>
+          <div class="badges">
+            <span class="badge"><span class="dot"></span> Data storytelling</span>
+            <span class="badge"><span class="dot"></span> Communication claire</span>
+            <span class="badge"><span class="dot"></span> Rigueur & détail</span>
+            <span class="badge"><span class="dot"></span> Travail en équipe</span>
+            <span class="badge"><span class="dot"></span> Gestion du temps</span>
+            <span class="badge"><span class="dot"></span> Curiosité & veille</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" style="padding:18px 0 8px;">
+      <h2>Contact</h2>
+      <p><strong>Email :</strong> <a href="mailto:mahamansanidaouda5@gmail.com">mahamansanidaouda5@gmail.com</a></p>
+      <p><strong>Email (Université) :</strong> <a href="mailto:daouda.mahaman_sani@etu.uca.fr">daouda.mahaman_sani@etu.uca.fr</a></p>
+      <p><strong>Téléphone :</strong> <a href="tel:+33611535513">+33 6 11 53 55 13</a></p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      © <span id="y"></span> • Daouda Mahaman Sani • Data Analyst
+    </div>
+  </footer>
+
+  <script>
+    // Footer year
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Simple tag filter for projects
+    const grid = document.getElementById('projectsGrid');
+    const buttons = document.querySelectorAll('.filter-btn');
+
+    buttons.forEach(btn => btn.addEventListener('click', () => {
+      buttons.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
+      btn.classList.add('active');
+      btn.setAttribute('aria-pressed','true');
+
+      const filter = btn.dataset.filter;
+      const cards = grid.querySelectorAll('.project-card');
+      cards.forEach(card => {
+        const tags = card.dataset.tags.split(' ');
+        const match = filter === 'all' || tags.includes(filter);
+        card.style.display = match ? 'flex' : 'none';
+      });
+    }));
+  </script>
+</body>
+</html>
