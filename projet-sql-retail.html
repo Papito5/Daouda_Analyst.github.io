@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Projet – Analyse Retail SQL | Daouda</title>
-  <meta name="description" content="Description détaillée du projet d'analyse Retail avec SQL : objectifs, données, méthodologie, résultats et apprentissages." />
+  <title>Projet SQL – Analyses Avancées & Reporting | Daouda</title>
+  <meta name="description" content="Projet d’Analyses Avancées et de Modélisation du Reporting Client et Produit via SQL : objectifs, méthodologie, outils, résultats et impact." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,14 +12,14 @@
 
   <style>
     :root{
-      --bg: #f7f9fc; --card:#fff; --ink:#0f172a; --muted:#475569; --brand:#0b4fff; --brand-ink:#0b3bb5; --line:#e5eaf2; --ring: rgba(11,79,255,.15);
+      --bg:#f7f9fc; --card:#fff; --ink:#0f172a; --muted:#475569; --brand:#0b4fff; --brand-ink:#0b3bb5; --line:#e5eaf2;
     }
     *,*::before,*::after{ box-sizing:border-box; }
-    body{ margin:0; font-family: Inter, system-ui, sans-serif; color:var(--ink); background:var(--bg); }
+    body{ margin:0; font-family:Inter,system-ui,sans-serif; color:var(--ink); background:var(--bg); }
     a{ color:var(--brand); text-decoration:none; }
     a:hover{ color:var(--brand-ink); text-decoration:underline; }
 
-    .container{ width:min(980px, 92vw); margin-inline:auto; }
+    .container{ width:min(980px,92vw); margin-inline:auto; }
     header{ position:sticky; top:0; z-index:40; background:rgba(247,249,252,.7); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); }
     .nav{ display:flex; align-items:center; justify-content:space-between; padding:12px 0; }
     .brand{ font-weight:800; letter-spacing:.2px; color:var(--ink); }
@@ -27,29 +27,21 @@
 
     .hero{ padding:28px 0 14px; }
     .breadcrumb{ display:inline-flex; align-items:center; gap:8px; font-weight:500; }
-    .title{ font-size:clamp(1.8rem, 3.5vw + .5rem, 2.6rem); margin:12px 0 4px; line-height:1.08; }
+    .title{ font-size:clamp(1.8rem,3.5vw + .5rem,2.6rem); margin:12px 0 4px; line-height:1.08; }
     .subtitle{ color:var(--muted); max-width:70ch; }
 
-    .meta{ display:flex; flex-wrap:wrap; gap:10px; margin:14px 0 0; }
-    .chip{ display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border:1px solid var(--line); border-radius:999px; background:var(--card); color:var(--ink); }
-    .chip strong{ font-weight:700; }
+    .section{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:22px; margin:18px 0; box-shadow:0 6px 14px -12px rgba(2,6,23,.12); }
+    .section h2{ margin-top:0; color:var(--ink); font-size:1.25rem; }
+    .section p, .section li{ color:var(--muted); line-height:1.55; }
+    ul{ margin-left:1.1rem; }
+    .footer{ margin:28px 0; color:var(--muted); text-align:center; }
 
-    .section{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:18px; margin:16px 0; box-shadow:0 6px 14px -12px rgba(2,6,23,.12); }
-    .section h2{ margin:0 0 8px; font-size:1.2rem; }
-    .section p{ color:var(--muted); }
-    .two-col{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
-
-    pre{ background:#0b1220; color:#e5e7eb; padding:14px; border-radius:12px; overflow:auto; font-size:.92rem; }
-
-    .footer{ margin:28px 0; color:var(--muted); }
-
-    @media (max-width: 900px){ .two-col{ grid-template-columns:1fr; } }
   </style>
 </head>
 <body>
   <header>
     <div class="container nav">
-      <a class="brand" href="index.html" aria-label="Retour à l'accueil"><span>PORTO</span>FOLIO</a>
+      <a class="brand" href="index.html"><span>PORTO</span>FOLIO</a>
       <nav class="nav-links">
         <a href="index.html#projets">Projets</a>
         <a href="index.html#contact">Contact</a>
@@ -60,94 +52,81 @@
   <main class="container">
     <section class="hero">
       <a class="breadcrumb" href="index.html#projets">← Retour aux projets</a>
-      <h1 class="title">Analyse de données avec SQL — Retail / Business Insights</h1>
-      <p class="subtitle">Cas complet d’analyse SQL sur données de ventes : tendances, performances, part‑à‑tout, segmentation clients & produits, et livrables utiles aux décideurs.
+      <h1 class="title">Projet d’Analyses Avancées et de Modélisation du Reporting Client et Produit via SQL</h1>
+      <p class="subtitle">
+        Un projet complet d’analyse transactionnelle visant à transformer des données brutes en intelligence décisionnelle structurée grâce à SQL avancé.
       </p>
-      <div class="meta">
-        <span class="chip"><strong>Période :</strong> Mars 2025</span>
-        <span class="chip"><strong>Outils :</strong> SQL</span>
-        <span class="chip"><strong>Techniques :</strong> JOIN, GROUP BY, Window Functions, CTE</span>
-        <span class="chip"><strong>Dépôt :</strong> <a href="#" target="_blank" rel="noopener">GitHub (à venir)</a></span>
-      </div>
     </section>
 
     <section class="section">
-      <h2>Objectif</h2>
-      <p>Répondre à des questions business à partir d’un schéma de ventes : <em>évolution</em> (trend), <em>performance</em> (meilleurs produits/segments), <em>part‑à‑tout</em> par catégorie/canal et <em>segmentation clients</em>, puis produire des rapports clients/produits.</p>
-    </section>
-
-    <section class="section two-col">
-      <div>
-        <h2>Jeu de données & schéma</h2>
-        <p>Modélisation compréhensive du schéma (tables, clés, relations). Validation des clés étrangères et du sens métier des champs (dates, montants, identifiants).</p>
-        <ul>
-          <li>Tables typiques : <code>customers</code>, <code>orders</code>, <code>order_items</code>, <code>products</code>, <code>categories</code>, <code>regions</code>.</li>
-          <li>Relations : <code>orders.customer_id → customers.id</code>, <code>order_items.product_id → products.id</code>, etc.</li>
-        </ul>
-      </div>
-      <div>
-        <h2>Méthodologie SQL</h2>
-        <ul>
-          <li>Jointures (INNER/LEFT) et agrégations (<code>GROUP BY</code>, <code>SUM</code>, <code>COUNT</code>).</li>
-          <li>Fenêtres : <code>ROW_NUMBER</code>, <code>LAG</code>/<code>LEAD</code>, cumul (<code>SUM() OVER</code>).</li>
-          <li>CTE / sous‑requêtes pour structurer la logique.</li>
-          <li>Optimisation : index, filtres sélectifs, éviter les full scans.</li>
-          <li>Qualité : contrôle des <code>NULL</code>, cohérence des totaux, détection d’anomalies.</li>
-        </ul>
-      </div>
-    </section>
-
-    <section class="section">
-      <h2>Analyses réalisées</h2>
+      <h2>Contexte et Objectif du Projet</h2>
+      <p>
+        Ce projet d'analyse avancée a été mené dans le but d'exploiter un ensemble de données transactionnelles (ventes, produits, clients) afin de répondre à des questions commerciales réelles et complexes.
+        L'objectif principal était de dépasser l'analyse exploratoire de base pour établir un ensemble d'analyses rigoureuses et de consolider les résultats dans des rapports (Views SQL) prêts à l'emploi pour les décideurs et les équipes opérationnelles.
+      </p>
+      <p>Le projet se concentre sur plusieurs axes stratégiques :</p>
       <ul>
-        <li>Trend analysis : variations MoM/YoY, courbes cumulées.</li>
-        <li>Performance : Top produits, segments, canaux.</li>
-        <li>Part‑à‑tout : contributions par catégorie/canal.</li>
-        <li>Segmentation clients : région, comportement, cohortes.</li>
-        <li>Rapports clients & produits (KPI, parts, anomalies).</li>
+        <li>Mesurer la performance et la croissance de l'entreprise sur différentes dimensions (temps, produits, clients).</li>
+        <li>Segmenter les clients et les produits pour une meilleure compréhension de leur comportement et de leur contribution.</li>
+        <li>Créer des livrables standardisés, permettant une analyse rapide et un support aux décisions stratégiques.</li>
       </ul>
     </section>
 
     <section class="section">
-      <h2>Extraits de requêtes</h2>
-      <pre><code>-- Exemple : CA mensuel + MoM/YoY avec fenêtre
-WITH monthly AS (
-  SELECT DATE_TRUNC('month', o.order_date) AS month,
-         SUM(oi.quantity * oi.unit_price) AS revenue
-  FROM orders o
-  JOIN order_items oi ON oi.order_id = o.id
-  GROUP BY 1
-)
-SELECT month,
-       revenue,
-       revenue - LAG(revenue) OVER (ORDER BY month)        AS mom_diff,
-       100.0 * (revenue / NULLIF(LAG(revenue) OVER (ORDER BY month),0) - 1) AS mom_pct,
-       revenue - LAG(revenue, 12) OVER (ORDER BY month)    AS yoy_diff,
-       100.0 * (revenue / NULLIF(LAG(revenue,12) OVER (ORDER BY month),0) - 1) AS yoy_pct
-FROM monthly
-ORDER BY month;
-</code></pre>
+      <h2>Méthodologie et Outils Utilisés</h2>
+      <p>
+        Ce projet repose exclusivement sur l'utilisation de techniques SQL avancées appliquées à une structure de type Data Warehouse (tables de Faits et de Dimensions : FactSales, DimCustomer, DimProduct).
+      </p>
+      <h3>1. Préparation et Structure des Données</h3>
+      <ul>
+        <li>Configuration de la base de données (MSSQL Server) et chargement des tables via des scripts SQL, assurant une fondation structurée pour l'analyse.</li>
+        <li>Utilisation intensive des CTEs (Common Table Expressions) et des sous-requêtes pour structurer les calculs intermédiaires, garantissant la modularité et la lisibilité des requêtes complexes.</li>
+      </ul>
+      <h3>2. Techniques Analytiques Avancées (Feuille de Route)</h3>
+      <ul>
+        <li><strong>Analyse du Changement dans le Temps :</strong> agrégation des métriques (ventes, clients, quantités) par granularité temporelle pour identifier tendances et saisonnalité.</li>
+        <li><strong>Analyse Cumulative :</strong> calcul de métriques progressives (Running Total, Moving Average) via les fonctions de fenêtre.</li>
+        <li><strong>Analyse de Performance :</strong> comparaison YoY (LAG()) et moyenne globale (AVG() OVER PARTITION BY).</li>
+        <li><strong>Analyse Partie-au-Tout :</strong> calcul de la contribution proportionnelle de chaque catégorie aux ventes totales.</li>
+        <li><strong>Segmentation de Données :</strong> création de dimensions dérivées (VIP, Régulier, Nouveau) à l’aide de la logique CASE WHEN.</li>
+      </ul>
+      <h3>3. Livraison des Rapports</h3>
+      <p>
+        Deux vues SQL solides ont été créées (<code>report_customers</code> et <code>report_products</code>) consolidant les données détaillées, les segments dérivés et les KPIs critiques (Recency, AOV, Average Monthly Spend).
+      </p>
     </section>
 
     <section class="section">
-      <h2>Résultats & livrables</h2>
+      <h2>Compétences Démontrées</h2>
       <ul>
-        <li>Suite de requêtes SQL propres répondant aux questions business.</li>
-        <li>Vues matérialisées / tables de rapports pour clients & produits.</li>
-        <li>Dépôt Git structuré (<em>scripts/</em>, README, versioning) et présentation d’accompagnement.</li>
+        <li><strong>SQL Avancé :</strong> maîtrise des fonctions de fenêtre, CTEs et sous-requêtes pour l’agrégation et la comparaison de données complexes.</li>
+        <li><strong>Analyse et Pensée Critique :</strong> transformation de dimensions brutes en mesures exploitables, identification d’insights stratégiques.</li>
+        <li><strong>Rigueur et Organisation :</strong> structuration logique des requêtes (Base Query → Aggregations → Final Results) et code commenté et optimisé.</li>
+        <li><strong>Communication et Orientation Business :</strong> production de livrables BI exploitables par Tableau, PowerBI ou d’autres analystes.</li>
       </ul>
     </section>
 
     <section class="section">
-      <h2>Ce que j’ai appris</h2>
+      <h2>Résultats Clés et Livrables Produits</h2>
       <ul>
-        <li>Transformer un tutoriel en projet personnel crédible.</li>
-        <li>Passer du besoin métier aux requêtes utiles et scalables.</li>
-        <li>Expliquer les choix techniques (JOIN, fenêtres, index) en entretien.</li>
+        <li><strong>Vues de Rapport Centralisées :</strong> création de <code>report_customers</code> et <code>report_products</code> offrant une vision à 360° des entités clés.</li>
+        <li><strong>Segmentation Client Actionnable :</strong> identification des clients VIP (>12 mois et >5000€ de dépenses) et nouveaux clients pour campagnes ciblées.</li>
+        <li><strong>Analyse de Performance :</strong> découverte de la domination de la catégorie Bikes (≈69% du revenu total), signalant un risque stratégique.</li>
+        <li><strong>Mesures de Croissance :</strong> calcul du total cumulatif et performance YoY, identifiant les années de croissance maximale (ex: 2013).</li>
+        <li><strong>KPIs Métier :</strong> Récence, AOV et Dépenses Mensuelles Moyennes prêts à l’emploi.</li>
       </ul>
     </section>
 
-    <p class="footer">Besoin d’en voir plus ? <a href="index.html#contact">Contactez‑moi</a> ou retournez aux <a href="index.html#projets">projets</a>.</p>
+    <section class="section">
+      <h2>Impact et Pertinence pour un Poste en Entreprise</h2>
+      <p>
+        Ce projet démontre non seulement une maîtrise technique approfondie du SQL pour les analyses avancées,
+        mais surtout ma capacité à transformer des données brutes en intelligence d'affaires structurée et en livrables de reporting qui accélèrent la prise de décision stratégique.
+        Il constitue une base solide pour toute fonction d'analyste de données ou d'économètre au sein d'une organisation.
+      </p>
+    </section>
+
+    <p class="footer">← <a href="index.html#projets">Retour aux projets</a></p>
   </main>
 </body>
 </html>
