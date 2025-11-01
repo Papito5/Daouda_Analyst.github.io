@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Risk Analytics E2E – Python ➝ SQL ➝ Power BI | Daouda</title>
+  <meta name="description" content="Projet Capstone E2E : ingestion SQL, EDA Python, KPIs bancaires et dashboard Power BI pour l’analyse prédictive du risque bancaire (prêts & dépôts)." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#f7f9fc; --card:#fff; --ink:#0f172a; --muted:#475569; --brand:#0b4fff; --brand-ink:#0b3bb5; --line:#e5eaf2;
+    }
+    *,*::before,*::after{ box-sizing:border-box; }
+    body{ margin:0; font-family:Inter,system-ui,sans-serif; color:var(--ink); background:var(--bg); }
+    a{ color:var(--brand); text-decoration:none; }
+    a:hover{ color:var(--brand-ink); text-decoration:underline; }
+
+    .container{ width:min(980px,92vw); margin-inline:auto; }
+    header{ position:sticky; top:0; z-index:40; background:rgba(247,249,252,.7); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); }
+    .nav{ display:flex; align-items:center; justify-content:space-between; padding:12px 0; }
+    .brand{ font-weight:800; letter-spacing:.2px; color:var(--ink); }
+    .brand span{ color:var(--brand); }
+
+    .hero{ padding:28px 0 14px; }
+    .breadcrumb{ display:inline-flex; align-items:center; gap:8px; font-weight:500; }
+    .title{ font-size:clamp(1.8rem,3.5vw + .5rem,2.6rem); margin:12px 0 4px; line-height:1.08; }
+    .subtitle{ color:var(--muted); max-width:70ch; }
+
+    .meta{ display:flex; flex-wrap:wrap; gap:10px; margin:14px 0 0; }
+    .chip{ display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border:1px solid var(--line); border-radius:999px; background:var(--card); color:var(--ink); }
+    .chip strong{ font-weight:700; }
+
+    .section{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:22px; margin:18px 0; box-shadow:0 6px 14px -12px rgba(2,6,23,.12); }
+    .section h2{ margin-top:0; color:var(--ink); font-size:1.25rem; }
+    .section p, .section li{ color:var(--muted); line-height:1.55; }
+    ul{ margin-left:1.1rem; }
+
+    .two-col{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+    @media (max-width: 900px){ .two-col{ grid-template-columns:1fr; } }
+
+    .github-link {
+      display:inline-block;
+      margin-top:16px;
+      background:var(--brand);
+      color:#fff;
+      padding:10px 18px;
+      border-radius:8px;
+      font-weight:600;
+      transition:background .25s ease;
+    }
+    .github-link:hover{ background:var(--brand-ink); text-decoration:none; }
+
+    .footer{ margin:28px 0; color:var(--muted); text-align:center; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="index.html"><span>PORTO</span>FOLIO</a>
+      <nav class="nav-links">
+        <a href="index.html#projets">Projets</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <a class="breadcrumb" href="index.html#projets">← Retour aux projets</a>
+      <h1 class="title">Analyse Prédictive du Risque Bancaire — E2E (Python • SQL • Power BI)</h1>
+      <p class="subtitle">
+        Capstone en Risk Analytics : ingestion & préparation SQL/Python, EDA avancée, définition de KPIs bancaires (prêts & dépôts) et dashboard Power BI pour la décision stratégique.
+      </p>
+      <div class="meta">
+        <span class="chip"><strong>Domaine :</strong> Services bancaires & financiers</span>
+        <span class="chip"><strong>Outils :</strong> Python, SQL (MySQL), Power BI</span>
+        <span class="chip"><strong>Libs :</strong> Pandas, Matplotlib, Seaborn, SQLAlchemy, PyMySQL</span>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Contexte et Objectif du Projet</h2>
+      <p>
+        Projet Capstone visant à comprendre comment exploiter les données pour réduire le risque de perte sur l’octroi de prêts.
+        Analyse des caractéristiques clients (âge, revenu estimé, cartes de crédit, type de compte, etc.) afin d’identifier les facteurs influençant le risque de défaut et fournir des KPIs/insights clairs aux décideurs.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Méthodologie et Outils Utilisés</h2>
+
+      <h3>1) Ingestion & Préparation des Données</h3>
+      <ul>
+        <li>Chargement du jeu de données bancaire dans MySQL.</li>
+        <li>Connexion Python ⇄ SQL via <em>PyMySQL</em> / SQLAlchemy pour lire dans un DataFrame Pandas (workflow réaliste).</li>
+      </ul>
+
+      <h3>2) EDA Avancée (Python)</h3>
+      <ul>
+        <li><strong>Nettoyage & Features :</strong> catégorisation d’<em>estimated_income</em> en <em>Low / Mid / High</em> par <em>bins</em>.</li>
+        <li><strong>Univariée & Bivariée :</strong> distributions (Genre, Nationalité, Occupation, BR ID) ; schémas d’usage CB par genre/nationalité (<code>hue</code>).</li>
+        <li><strong>Numérique & Corrélation :</strong> variables financières très asymétriques (right-skewed) ; heatmap de corrélations sur attributs numériques.</li>
+      </ul>
+
+      <h3>3) Modélisation Conceptuelle & KPIs</h3>
+      <ul>
+        <li><strong>Total Loan :</strong> bank loans + business lending + credit card balance.</li>
+        <li><strong>Total Deposit :</strong> bank deposit + savings account + checking account + foreign currency account.</li>
+      </ul>
+
+      <h3>4) Visualisation & Communication (Power BI)</h3>
+      <ul>
+        <li>Conception multi-pages : Homepage, Loan Analysis, Deposit Analysis, Summary.</li>
+        <li>Design professionnalisé (Canva) et filtres d’exploration (Genre, Année d’adhésion).</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Compétences Démontrées</h2>
+      <ul>
+        <li><strong>Expertise transversale :</strong> SQL (MySQL), Python (Pandas, Seaborn), Power BI.</li>
+        <li><strong>Rigueur statistique :</strong> interprétation des distributions, transformations pertinentes, lecture des corrélations (heatmap).</li>
+        <li><strong>Orientation business :</strong> définition de métriques bancaires actionnables (Total Loan / Total Deposit).</li>
+        <li><strong>Communication & dataviz :</strong> synthèse en dashboard intuitif pour décideurs.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Résultats Clés & Livrables</h2>
+      <ul>
+        <li><strong>Relations financières :</strong> corrélation positive notable entre dépôts, comptes chèques/épargne et comptes en devises (≈ 0,41).</li>
+        <li><strong>Segmentation revenus :</strong> <em>Income Band</em> (Low/Mid/High) pour analyser les prêts par segment.</li>
+        <li><strong>KPIs :</strong> Total Loan ≈ 4,38&nbsp;Mds$ ; Total Deposit ≈ 3,77&nbsp;Mds$.</li>
+        <li><strong>Livrables :</strong> dashboard Power BI multi-pages (Loan, Deposit) + navigation par BR ID, Nationalité, Occupation.</li>
+      </ul>
+
+      <!-- Bouton GitHub -->
+      <a class="github-link" href="https://github.com/tonprofil/nom-du-repo" target="_blank" rel="noopener">🔗 Voir le code sur GitHub</a>
+    </section>
+
+    <section class="section">
+      <h2>Impact et Pertinence</h2>
+      <p>
+        Flux E2E combinant Python & SQL avec la puissance de communication de Power BI dans un contexte bancaire réglementé.
+        Capacité à transformer des données financières en leviers concrets de minimisation du risque et de croissance stratégique.
+      </p>
+    </section>
+
+    <p class="footer">← <a href="index.html#projets">Retour aux projets</a></p>
+  </main>
+</body>
+</html>
