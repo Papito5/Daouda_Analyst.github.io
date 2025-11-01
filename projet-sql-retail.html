@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Projet SQL – Analyses Avancées & Reporting | Daouda</title>
-  <meta name="description" content="Projet d’Analyses Avancées et de Modélisation du Reporting Client et Produit via SQL : objectifs, méthodologie, outils, résultats et impact." />
+  <title>Analyse 360° Client – Python ➝ SQL ➝ Power BI | Daouda</title>
+  <meta name="description" content="Projet E2E : préparation Python, analyses SQL, et dashboard Power BI pour comprendre le comportement client d’un leader du retail et générer des insights actionnables." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,12 +30,31 @@
     .title{ font-size:clamp(1.8rem,3.5vw + .5rem,2.6rem); margin:12px 0 4px; line-height:1.08; }
     .subtitle{ color:var(--muted); max-width:70ch; }
 
+    .meta{ display:flex; flex-wrap:wrap; gap:10px; margin:14px 0 0; }
+    .chip{ display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border:1px solid var(--line); border-radius:999px; background:var(--card); color:var(--ink); }
+    .chip strong{ font-weight:700; }
+
     .section{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:22px; margin:18px 0; box-shadow:0 6px 14px -12px rgba(2,6,23,.12); }
     .section h2{ margin-top:0; color:var(--ink); font-size:1.25rem; }
     .section p, .section li{ color:var(--muted); line-height:1.55; }
     ul{ margin-left:1.1rem; }
-    .footer{ margin:28px 0; color:var(--muted); text-align:center; }
 
+    .two-col{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+    @media (max-width: 900px){ .two-col{ grid-template-columns:1fr; } }
+
+    .github-link {
+      display:inline-block;
+      margin-top:16px;
+      background:var(--brand);
+      color:#fff;
+      padding:10px 18px;
+      border-radius:8px;
+      font-weight:600;
+      transition:background .25s ease;
+    }
+    .github-link:hover{ background:var(--brand-ink); text-decoration:none; }
+
+    .footer{ margin:28px 0; color:var(--muted); text-align:center; }
   </style>
 </head>
 <body>
@@ -52,77 +71,83 @@
   <main class="container">
     <section class="hero">
       <a class="breadcrumb" href="index.html#projets">← Retour aux projets</a>
-      <h1 class="title">Projet d’Analyses Avancées et de Modélisation du Reporting Client et Produit via SQL</h1>
+      <h1 class="title">Analyse 360° du Comportement Client (Retail) — de Python à Power BI (Projet E2E)</h1>
       <p class="subtitle">
-        Un projet complet d’analyse transactionnelle visant à transformer des données brutes en intelligence décisionnelle structurée grâce à SQL avancé.
+        Projet bout-en-bout pour un leader du retail : préparation des données en Python, analyses avancées en SQL, et tableau de bord Power BI pour piloter ventes, satisfaction et fidélité.
       </p>
+      <div class="meta">
+        <span class="chip"><strong>Période :</strong> 2025</span>
+        <span class="chip"><strong>Outils :</strong> Python, SQL, Power BI</span>
+        <span class="chip"><strong>DB :</strong> PostgreSQL / MySQL / MSSQL</span>
+        <span class="chip"><strong>Libs :</strong> Pandas, SQLAlchemy, psycopg</span>
+      </div>
     </section>
 
     <section class="section">
       <h2>Contexte et Objectif du Projet</h2>
       <p>
-        Ce projet d'analyse avancée a été mené dans le but d'exploiter un ensemble de données transactionnelles (ventes, produits, clients) afin de répondre à des questions commerciales réelles et complexes.
-        L'objectif principal était de dépasser l'analyse exploratoire de base pour établir un ensemble d'analyses rigoureuses et de consolider les résultats dans des rapports (Views SQL) prêts à l'emploi pour les décideurs et les équipes opérationnelles.
+        Ce projet a été initié pour répondre à une problématique stratégique posée par une grande entreprise de retail :
+        mieux comprendre les habitudes d'achat de ses clients afin d'améliorer les ventes, la satisfaction et la fidélité à long terme.
+        L'objectif principal était de leverager les données clients pour identifier des tendances claires, optimiser l'engagement
+        et affiner les stratégies marketing et produits. Le livrable final devait fournir une plateforme interactive et des recommandations exploitables.
       </p>
-      <p>Le projet se concentre sur plusieurs axes stratégiques :</p>
-      <ul>
-        <li>Mesurer la performance et la croissance de l'entreprise sur différentes dimensions (temps, produits, clients).</li>
-        <li>Segmenter les clients et les produits pour une meilleure compréhension de leur comportement et de leur contribution.</li>
-        <li>Créer des livrables standardisés, permettant une analyse rapide et un support aux décisions stratégiques.</li>
-      </ul>
+      <p>
+        Le jeu de données inclut démographie (âge, genre), info produits (article, catégorie), transactions (montant),
+        promotions (rabais), et indicateurs de fidélité (achats précédents, fréquence).
+      </p>
     </section>
 
     <section class="section">
       <h2>Méthodologie et Outils Utilisés</h2>
-      <p>
-        Ce projet repose exclusivement sur l'utilisation de techniques SQL avancées appliquées à une structure de type Data Warehouse (tables de Faits et de Dimensions : FactSales, DimCustomer, DimProduct).
-      </p>
-      <h3>1. Préparation et Structure des Données</h3>
+
+      <h3>1) Préparation & Ingénierie des Données (Python)</h3>
       <ul>
-        <li>Configuration de la base de données (MSSQL Server) et chargement des tables via des scripts SQL, assurant une fondation structurée pour l'analyse.</li>
-        <li>Utilisation intensive des CTEs (Common Table Expressions) et des sous-requêtes pour structurer les calculs intermédiaires, garantissant la modularité et la lisibilité des requêtes complexes.</li>
+        <li><strong>Valeurs manquantes :</strong> imputation des 37 valeurs nulles de <em>review_rating</em> par médiane <em>par catégorie</em> (évite le biais vs médiane globale).</li>
+        <li><strong>Standardisation :</strong> renommage des colonnes en <em>snake_case</em> pour cohérence et usage SQL.</li>
+        <li><strong>Features :</strong> <code>age_group</code> via <code>pd.qcut</code> (young adult, adult, middle-aged, senior) ; <code>purchase_frequency_days</code> (mapping hebdo/mensuel → jours).</li>
+        <li><strong>Redondance :</strong> détection de doublon entre <em>discount_applied</em> et <em>promo_code_used</em> → suppression de la colonne redondante.</li>
       </ul>
-      <h3>2. Techniques Analytiques Avancées (Feuille de Route)</h3>
+
+      <h3>2) Analyse & Requêtes Avancées (SQL)</h3>
       <ul>
-        <li><strong>Analyse du Changement dans le Temps :</strong> agrégation des métriques (ventes, clients, quantités) par granularité temporelle pour identifier tendances et saisonnalité.</li>
-        <li><strong>Analyse Cumulative :</strong> calcul de métriques progressives (Running Total, Moving Average) via les fonctions de fenêtre.</li>
-        <li><strong>Analyse de Performance :</strong> comparaison YoY (LAG()) et moyenne globale (AVG() OVER PARTITION BY).</li>
-        <li><strong>Analyse Partie-au-Tout :</strong> calcul de la contribution proportionnelle de chaque catégorie aux ventes totales.</li>
-        <li><strong>Segmentation de Données :</strong> création de dimensions dérivées (VIP, Régulier, Nouveau) à l’aide de la logique CASE WHEN.</li>
+        <li><strong>Techniques :</strong> sous-requêtes pour repérer les clients dépensant &gt; moyenne <em>même avec rabais</em> ; Window Functions (<code>ROW_NUMBER()</code>) pour classer les 3 produits top par catégorie.</li>
+        <li><strong>Segmentation & KPI :</strong> CTE + <code>CASE WHEN</code> pour <em>New, Returning, Loyal</em> ; % d’achats avec rabais par produit pour mesurer la dépendance promotionnelle.</li>
       </ul>
-      <h3>3. Livraison des Rapports</h3>
-      <p>
-        Deux vues SQL solides ont été créées (<code>report_customers</code> et <code>report_products</code>) consolidant les données détaillées, les segments dérivés et les KPIs critiques (Recency, AOV, Average Monthly Spend).
-      </p>
+
+      <h3>3) Visualisation & Communication (Power BI)</h3>
+      <ul>
+        <li><strong>Dashboard :</strong> cartes KPI (Nb clients, panier moyen, note moyenne), revenus/ventes par catégorie & groupe d’âge.</li>
+        <li><strong>Exploration :</strong> slicers par Statut d’abonnement, Genre, Catégorie, Type d’expédition.</li>
+      </ul>
     </section>
 
     <section class="section">
       <h2>Compétences Démontrées</h2>
       <ul>
-        <li><strong>SQL Avancé :</strong> maîtrise des fonctions de fenêtre, CTEs et sous-requêtes pour l’agrégation et la comparaison de données complexes.</li>
-        <li><strong>Analyse et Pensée Critique :</strong> transformation de dimensions brutes en mesures exploitables, identification d’insights stratégiques.</li>
-        <li><strong>Rigueur et Organisation :</strong> structuration logique des requêtes (Base Query → Aggregations → Final Results) et code commenté et optimisé.</li>
-        <li><strong>Communication et Orientation Business :</strong> production de livrables BI exploitables par Tableau, PowerBI ou d’autres analystes.</li>
+        <li><strong>Rigueur analytique :</strong> imputation par catégorie ; règles métier claires pour la segmentation client (<em>New, Returning, Loyal</em>).</li>
+        <li><strong>SQL avancé :</strong> Window Functions (<code>ROW_NUMBER()</code>), sous-requêtes, CTE ; multi-SGBD (PostgreSQL / MySQL / MSSQL).</li>
+        <li><strong>Python data :</strong> nettoyage robuste, <em>snake_case</em>, features (<code>qcut</code>, mapping fréquence).</li>
+        <li><strong>BI & dataviz :</strong> dashboard interactif et orienté KPI pour décision managériale.</li>
+        <li><strong>Gestion E2E & comm’ :</strong> de la problématique aux livrables (rapport, présentation), publication GitHub.</li>
       </ul>
     </section>
 
     <section class="section">
-      <h2>Résultats Clés et Livrables Produits</h2>
+      <h2>Résultats Clés & Livrables</h2>
       <ul>
-        <li><strong>Vues de Rapport Centralisées :</strong> création de <code>report_customers</code> et <code>report_products</code> offrant une vision à 360° des entités clés.</li>
-        <li><strong>Segmentation Client Actionnable :</strong> identification des clients VIP (>12 mois et >5000€ de dépenses) et nouveaux clients pour campagnes ciblées.</li>
-        <li><strong>Analyse de Performance :</strong> découverte de la domination de la catégorie Bikes (≈69% du revenu total), signalant un risque stratégique.</li>
-        <li><strong>Mesures de Croissance :</strong> calcul du total cumulatif et performance YoY, identifiant les années de croissance maximale (ex: 2013).</li>
-        <li><strong>KPIs Métier :</strong> Récence, AOV et Dépenses Mensuelles Moyennes prêts à l’emploi.</li>
+        <li><strong>Valeur client :</strong> les <em>young adults</em> génèrent le revenu total le plus élevé (suivis des groupes d’âge moyen).</li>
+        <li><strong>Expédition :</strong> l’option <em>Express</em> est associée à un panier moyen plus élevé → opportunité d’investir dans la livraison rapide.</li>
+        <li><strong>Abonnements :</strong> la majorité des <em>repeat buyers</em> ne sont pas abonnés → proposition de valeur à renforcer.</li>
+        <li><strong>Livrables :</strong> dashboard Power BI interactif, rapport projet détaillé, présentation synthétique.</li>
       </ul>
+      <a class="github-link" href="https://github.com/tonprofil/nom-du-repo" target="_blank" rel="noopener">🔗 Voir le code sur GitHub</a>
     </section>
 
     <section class="section">
-      <h2>Impact et Pertinence pour un Poste en Entreprise</h2>
+      <h2>Impact et Pertinence</h2>
       <p>
-        Ce projet démontre non seulement une maîtrise technique approfondie du SQL pour les analyses avancées,
-        mais surtout ma capacité à transformer des données brutes en intelligence d'affaires structurée et en livrables de reporting qui accélèrent la prise de décision stratégique.
-        Il constitue une base solide pour toute fonction d'analyste de données ou d'économètre au sein d'une organisation.
+        Projet E2E démontrant la capacité à couvrir tout le cycle analytique — de la préparation des données à la production d’insights stratégiques et de livrables de communication —
+        assurant une transition fluide des données brutes vers des actions commerciales mesurables et rentables au sein d’une équipe Data Science / Économétrie.
       </p>
     </section>
 
